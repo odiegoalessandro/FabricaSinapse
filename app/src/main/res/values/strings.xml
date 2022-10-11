@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Synapse</string>
+    <string name="result">Result</string>
+    <string name="type_your_name">Type your name…</string>
+    <string name="send">Send</string>
+    <string name="hello_name" formatted="true">Hello, %s!</string>
+</resources>
