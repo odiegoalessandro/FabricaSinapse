@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +18,24 @@ class MainActivity : AppCompatActivity() {
         val etName = findViewById<EditText>(R.id.etName)
         val btSend = findViewById<Button>(R.id.btSend)
         val btSend2 = findViewById<Button>(R.id.btSend2)
+        val btSend3 = findViewById<Button>(R.id.btSend3)
+
+        val openSendResultActivity = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data?.getStringExtra("RESULT")
+                tvResult.text = getString(R.string.hello_name, etName.text.toString())
+            } else {
+                val data = result.data?.getStringExtra("RESULT")
+                tvResult.text = "cancelado"
+            }
+        }
+
+        fun register() {
+            val intent = Intent(this, SendResultActivity::class.java)
+            openSendResultActivity.launch(intent)
+        }
 
         btSend.setOnClickListener {
             if (etName.text.isNotBlank()) {
@@ -35,6 +55,10 @@ class MainActivity : AppCompatActivity() {
             } else {
                 etName.error = getString(R.string.type_your_name)
             }
+        }
+
+        btSend3.setOnClickListener {
+            register()
         }
     }
 }
