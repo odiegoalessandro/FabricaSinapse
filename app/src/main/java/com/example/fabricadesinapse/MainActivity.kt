@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
                 tvResult.text = getString(R.string.hello_name, etName.text.toString())
             } else {
                 val data = result.data?.getStringExtra("RESULT")
-                tvResult.text = "cancelado"
+                tvResult.text = getString(R.string.canceled)
             }
         }
 
